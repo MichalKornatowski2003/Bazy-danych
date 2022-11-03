@@ -1,0 +1,10 @@
+CREATE TABLE postac(id_postaci INTEGER PRIMARY KEY NOT NULL, nazwa VARCHAR(40), rodzaj enum('wiking','ptak','kobieta'), data_ur DATE, wiek INTEGER UNSIGNED);
+insert into postac values(1, "Bjorn",'wiking','2022-08-09',28),(2,"Drozd",'ptak','2020-04-28',14),(3,"Tesciowa",'kobieta','1940-09-01',48);
+update postac set wiek=88 where wiek 48;
+create table walizka(id_walizki integer primary key not null auto_increment, pojemnosc integer unsigned, kolor
+ enum('rozowy','czerwony','teczowy','zolty'),id_wlasciciela integer,foreign key(id_wlasciciela) references postac(id_postaci) on delete cascade);
+alter table walizka alter kolor set default "rozowy";
+create table izba(adres_budynku integer, nazwa_izby varchar(40), metraz integer unsigned,id_wlasciciel integer, foreign key (id_wlasciciel) references postac(id_postaci) on delete set null, primary key(adres_budynku, nazwa_izby));
+alter table izba add kolor_izby varchar(40) default "czarny" after metraz;
+insert into izba values(28,"spizarnia", 48, "czarny", 1);
+
