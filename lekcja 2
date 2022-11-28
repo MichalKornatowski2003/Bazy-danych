@@ -1,0 +1,29 @@
+delete from postac where rodzaj="wiking" and wiek=114 or wiek=34;
+alter table przetwory drop foreign key przetwory_ibfk_1;
+alter table przetwory drop foreign key przetwory_ibfk_2;
+alter table walizka drop foreign key walizka_ibfk_1;
+alter table postac drop primary key;
+alter table postac drop id_postaci;
+alter table postac add pesel varchar(11) not null;
+update postac set pesel='12345678901' where nazwa='Bjorn';
+				^
+	tak robię ze wszystkimi postaciami
+
+alter table postac add primary key(pesel);
+alter table postac modify column rodzaj enum('wiking','ptak','kobieta','syrena');
+insert into postac values('Gertrude Nieszczera','syrena','2000-11-07',22,'pasazer');
+update postac set nazwa_statku='czarna perla' where nazwa like '%a%';
+update statek set max_ladownosc=max_ladownosc-(max_ladownosc*0.3) where data_wodowania between '1901-01-01' and '1999-12-31';
+select nazwa, case when wiek>=1000 then 'za stary' when wiek <1000 then 'mlody byk' end as starosc from postac;
+insert into postac values('Loko','gad','2020-08-09',2,'pasazer',null);
+
+create table marynarz like postac;
+insert into marynarz select * from postac where nazwa_statku is not null;
+update postac set nazwa_statku=null where nazwa_statku is not null;
+delete from postac where nazwa='Witserg';
+delete from statek where nazwa_statku is not null;
+drop table statek;
+create table zwierz(id int primary key not null auto_increment, nazwa varchar(40), wiek int);
+insert into zwierz(nazwa,wiek) select nazwa, wiek from postac where rodzaj='ptak';
+
+
